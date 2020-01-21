@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels: 
+    name: rs-label
+    type: back-end
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 2
+  template: 
+    
+    metadata: 
+      name: nginx
+      labels: 
+        name: rs-label
+        type: back-end
+
+    spec:
+      tolerations:
+      - key: "taintdemo"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"  
+      containers:
+        - name: nginx-demo
+          image: yogeshraheja/yogeshk8stest
+  replicas: 3
+  selector:
+    matchLabels:
+      name: rs-label
+      type: back-end
