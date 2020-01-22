@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins-mai
+  labels:
+    app: maithJenk
+spec:
+  containers:
+  - name: jenkins
+    image: jenkins
+    volumeMounts:
+    - name: jenkins-home-maith
+      mountPath: /var/jenkins_home
+  volumes:
+  - name: jenkins-home-maith
+    hostPath:
+      path: /var/jen_home_maith
+      type: Directory

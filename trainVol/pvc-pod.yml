@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mai-pvc-pod
+  labels:
+    app: maiapp
+spec:
+  containers:
+  - name: frontend
+    image: nginx
+    volumeMounts:
+    - mountPath: "/usr/share/nginx/html/"
+      name: mai-pvc-pod
+  volumes:
+    - name: maitvolclaim
+      persistentVolumeClaim:
+        claimName: mai-claim
