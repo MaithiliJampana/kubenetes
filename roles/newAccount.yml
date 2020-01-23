@@ -1,0 +1,32 @@
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tester-user
+  namespace: kubernetes-dashboard
+---
+
+apiVersion:  rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    k8s-app: cluster-tester
+  name: cluster-tester
+rules:
+ - apiGroups: [""]
+   resources: ["pods", "namespaces"]
+   verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tester-user-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-tester
+subjects:
+- kind: ServiceAccount
+  name: tester-user
+  namespace: kubernetes-dashboard

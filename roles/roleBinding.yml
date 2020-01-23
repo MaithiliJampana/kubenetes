@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-pods-mai
+  namespace: default
+subjects:
+- kind: User
+  name: maithili
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pod-reader-mai
+  apiGroup: rbac.authorization.k8s.io
